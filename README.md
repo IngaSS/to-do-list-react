@@ -35,7 +35,7 @@ Description of events and its data read read below.
 
 
 
-### **initLanguage**
+### initLanguage
 adding a new language pack  
 
 **Usage**:  
