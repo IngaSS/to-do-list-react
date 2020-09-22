@@ -142,7 +142,7 @@ ckAPIMethods.languages('changeLanguage', id)
 
  
 
-### **changeLanguagePacket**
+### changeLanguagePacket
 changing values in a specific language pack  
 
 **Usage**:  
