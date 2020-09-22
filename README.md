@@ -1,68 +1,475 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# languagesAPI 
+This method changes language pack settings
 
-## Available Scripts
 
-In the project directory, you can run:
+# Usage
+To make any changes you need: 
 
-### `npm start`
+* call method `ckAPIMethods.languageAPI` 
+* enter name of event and send data with the required keys
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+## Arguments
+| Value          |                                 |
+|----------------|---------------------------------|
+| eventName      | event name                      |
+| data           | data depends on the event       |
 
-### `npm test`
+Description of events and its data read read below.
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## List of events
+| Event name                                      |                                                                                    |
+|-------------------------------------------------|------------------------------------------------------------------------------------|
+| [initLanguage](#initLanguage)                   | adding a new language pack                                                         |
+| [changeLanguage](#changeLanguage)               | change language                                                                    |
+| [changeLanguagePacket](#changeLanguagePacket)   | changing a value in a specific language pack                                       |
+| [changeBadge](#changeBadge)                     | changing the value in component `Badge` in a specific language pack                |
+| [changeSender](#changeSender)                   | changing the value in component `Sender` in a specific language pack               |
+| [changeDialog](#changeDialog)                   | changing the value in component `Dialog` in a specific language pack               |
+| [changeMessage](#changeMessage)                 | changing the value in component `Message` in a specific language pack              |
+| [changeHeader](#changeHeader)                   | changing the value in component `Header` in a specific language pack               |
+| [changeRate](#changeRate)                       | changing the value in component `Rate` in a specific language pack                 |
+| [changeCKDropAndDown](#changeCKDropAndDown)     | changing the value in component `CKDropAndDown` in a specific language pack  |
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+### **initLanguage**<a name="initLanguage"></a>
+adding a new language pack  
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+**Usage**:  
+```
+import { ckAPIMethods } from "sova-chatkit"
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+ckAPIMethods.languages('initLanguage', {
+  language: 'en',
+  packet: {
+    Sender: {
+      placeholder: 'Write message',
+      sendButtonTitle: 'Send',
+      fileButtonTitle: 'File',
+      stickerButtonTitle: 'Sticker',
+      shareButtonTitle: 'Share',
+      voiceButtonTitle: 'Voice'
+    },
+    Message: {
+      rateButtonTitle: 'Rate',
+      audioMessageButtonTitle: 'AudioMessage'
+    },
+    Dialog: {
+      searchButtonTitle: 'Search',
+      rateButtonTitle: 'Rate',
+      loading: 'typing...'
+    },
+    Header: {
+      settingsButtonTitle: 'Settings',
+      resetButtonTitle: 'Reset',
+      title: 'SOVA Chat Kit',
+      searchButtonTitle: 'Search',
+      closeButtonTitle: 'Close'
+    },
+    Badge: {
+      title: 'Chat It'
+    },
+    Rate: {
+      title: 'Is it helpfull?',
+      positive: 'Yes',
+      negative: 'No',
+      ratingList: [
+        { rating: 3, text: 'I had other question' },
+        { rating: 2, text: 'Not understand the answer' },
+        { rating: 1, text: 'Not resolve my problem' }
+      ]
+    },
+    CKDropAndDown: {
+      title: 'Drag and drop the file',
+      comment: 'Pdf, txt, xls, doc no more than 25Mb',
+      errorComment: 'Message that the allowed file size and format were exceeded, as well as the number of files',
+      divider: 'or',
+      chooseFileButtonTitle: 'Choose file'
+    },
+    Search: {
+      placeholder: 'Search',
+      divider: 'of',
+      status: 'No results'
+    },
+    Settings: {
+      headingLanguage: 'Language',
+      headingTheme: 'Appearance',
+      headingTime: 'Time',
+      title: 'Settings',
+      search: {
+        placeholder: 'Search',
+      }
+    }
+  }
+})
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+**Data**:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+| Key                |   Type          | Required  |  Description                           |
+|--------------------|-----------------|-----------|----------------------------------------|
+| language           | string          | +         | chosen language ( ru / eng / etc.)     |
+| Sender             | object          | +         | language settings for `Sender`         |
+| Message            | object          | +         | language settings for `Message`        |
+| Dialog             | object          | +         | language settings for `Dialog`         |
+| Header             | object          | +         | language settings for `Header`         |
+| Badge              | object          | +         | language settings for `Badge`          |
+| Rate               | object          | +         | language settings for `Rate`           |
+| CKDropAndDown      | object          | +         | language settings for `CKDropAndDown`  |
+| Search             | object          | +         | language settings for `Search`         |
+| Settings           | object          | +         | language settings for `Settings`       |
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### **changeLanguage**  <a name="changeLanguage"></a>
+change language  
 
-### Code Splitting
+**Usage**:  
+```
+import { ckAPIMethods } from "sova-chatkit"
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+ckAPIMethods.languages('changeLanguage', id)
+```
 
-### Analyzing the Bundle Size
+**Data**:
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+| Key                |   Type          | Required  |  Description                    |
+|--------------------|-----------------|-----------|---------------------------------|
+| id                 | string          |     +     | ID language ( en / rus / etc.)  |
 
-### Making a Progressive Web App
+ 
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+### **changeLanguagePacket**  <a name="changeLanguagePacket"></a>
+changing values in a specific language pack  
 
-### Advanced Configuration
+**Usage**:  
+```
+import { ckAPIMethods } from "sova-chatkit"
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+ckAPIMethods.languages('changeLanguagePacket', {
+  language: 'en',
+  packet: {
+    Sender: {
+      placeholder: 'Write message',
+      sendButtonTitle: 'Send',
+      fileButtonTitle: 'File',
+      stickerButtonTitle: 'Sticker',
+      shareButtonTitle: 'Share',
+      voiceButtonTitle: 'Voice'
+    },
+    Message: {
+      rateButtonTitle: 'Rate',
+      audioMessageButtonTitle: 'AudioMessage'
+    },
+    Dialog: {
+      searchButtonTitle: 'Search',
+      rateButtonTitle: 'Rate',
+      loading: 'typing...'
+    },
+    Header: {
+      settingsButtonTitle: 'Settings',
+      resetButtonTitle: 'Reset',
+      title: 'SOVA Chat Kit',
+      searchButtonTitle: 'Search',
+      closeButtonTitle: 'Close'
+    },
+    Badge: {
+      title: 'Chat It'
+    },
+    Rate: {
+      title: 'Is it helpfull?',
+      positive: 'Yes',
+      negative: 'No',
+      ratingList: [
+        { rating: 3, text: 'I had other question' },
+        { rating: 2, text: 'Not understand the answer' },
+        { rating: 1, text: 'Not resolve my problem' }
+      ]
+    },
+    CKDropAndDown: {
+      title: 'Drag and drop the file',
+      comment: 'Pdf, txt, xls, doc no more than 25Mb',
+      errorComment: 'Message that the allowed file size and format were exceeded, as well as the number of files',
+      divider: 'or',
+      chooseFileButtonTitle: 'Choose file'
+    },
+    Search: {
+      placeholder: 'Search',
+      divider: 'of',
+      status: 'No results'
+    },
+    Settings: {
+      headingLanguage: 'Language',
+      headingTheme: 'Appearance',
+      headingTime: 'Time',
+      title: 'Settings',
+      search: {
+        placeholder: 'Search',
+      }
+    }
+  }
+})
+```
 
-### Deployment
+**Data**:
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+| Key                |   Type          | Required  |  Description                           |
+|--------------------|-----------------|-----------|----------------------------------------|
+| language           | string          | +         | chosen language ( ru / eng / etc.)     |
+| Sender             | object          | +         | language settings for `Sender`         |
+| Message            | object          | +         | language settings for `Message`        |
+| Dialog             | object          | +         | language settings for `Dialog`         |
+| Header             | object          | +         | language settings for `Header`         |
+| Badge              | object          | +         | language settings for `Badge`          |
+| Rate               | object          | +         | language settings for `Rate`           |
+| CKDropAndDown      | object          | +         | language settings for `CKDropAndDown`  |
+| Search             | object          | +         | language settings for `Search`         |
+| Settings           | object          | +         | language settings for `Settings`       |
 
-### `npm run build` fails to minify
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
+### **changeBadge**  <a name="changeBadge"></a> 
+changing the value in component `Badge` in a specific language pack   
+
+**Usage**:
+```
+import { ckAPIMethods } from "sova-chatkit"
+
+ckAPIMethods.languages('changeBadge', {
+  language: 'English',  // name of chosen language packet which values you want to change
+  data: {
+    title: 'Help?'
+  }
+})
+```
+
+**Data**:
+
+| Key                |   Type          | Required  |  Description                  |
+|--------------------|-----------------|-----------|-------------------------------|
+| title              | string          |     +     | text in title                 |
+
+
+
+### **changeSender**  <a name="changeSender"></a> 
+changing the value in component `Sender` in a specific language pack   
+
+**Usage**:  
+```
+import { ckAPIMethods } from "sova-chatkit"
+
+ckAPIMethods.languages('changeSender', {
+  language: 'English',  // name of chosen language packet which values you want to change
+  data: {
+    fileButtonTitle: 'File',
+    placeholder: 'Write message',
+    sendButtonTitle: 'Send',
+    shareButtonTitle: 'Share',
+    stickerButtonTitle: 'Sticker',
+    voiceButtonTitle: 'Voice'
+  }
+})
+```
+
+**Data**:
+
+| Key                  |   Type          | Required  |  Description                    |
+|----------------------|-----------------|-----------|---------------------------------|
+| fileButtonTitle      | string          |     +     | text in file button title       |
+| placeholder          | string          |     +     | text in placeholder             |
+| sendButtonTitle      | string          |     +     | text in send button title       |
+| shareButtonTitle     | string          |     +     | text in share button title      |
+| stickerButtonTitle   | string          |     +     | text in sticker button title    |
+| voiceButtonTitle     | string          |     +     | text in voice button title      |
+
+
+
+### **changeDialog**  <a name="changeDialog"></a> 
+changing the value in component `Dialog` in a specific language pack   
+
+**Usage**:  
+```
+import { ckAPIMethods } from "sova-chatkit"
+
+ckAPIMethods.languages('changeDialog', {
+  language: 'English',  // name of chosen language packet which values you want to change
+  data: {
+    searchButtonTitle: 'Search',
+    rateButtonTitle: 'Rate',
+    loading: 'typing...'
+  }
+})
+```
+
+**Data**:
+
+| Key                |   Type          |  Required |  Description                  |
+|--------------------|-----------------|-----------|-------------------------------|
+| searchButtonTitle  | string          |     +     | text in search button title   |
+| rateButtonTitle    | string          |     +     | text in rate button title     |
+| loading            | string          |     +     | text in loading               |
+
+
+
+### **changeMessage**  <a name="changeMessage"></a> 
+changing the value in component `Message` in a specific language pack   
+
+**Usage**:  
+```
+import { ckAPIMethods } from "sova-chatkit"
+
+ckAPIMethods.languages('changeMessage', {
+  language: 'English',  // name of chosen language packet which values you want to change
+  data: {
+    rateButtonTitle: 'Rate',
+    audioMessageButtonTitle: 'Audio message'
+  }
+})
+```
+
+**Data**:
+
+| Key                        |   Type          |  Required |  Description                        |
+|----------------------------|-----------------|-----------|-------------------------------------|
+| rateButtonTitle            | string          |     +     | text in rate button title           |
+| audioMessageButtonTitle    | string          |     +     | text in audio message button title  |
+
+
+
+### **changeHeader**  <a name="changeHeader"></a> 
+changing the value in component `Header` in a specific language pack  
+
+**Usage**:  
+```
+import { ckAPIMethods } from "sova-chatkit"
+
+ckAPIMethods.languages('changeHeader', {
+  language: 'English',  // name of chosen language packet which values you want to change
+  data: {
+    title: 'Help?',
+    settingsButtonTitle: 'settings',
+    resetButtonTitle: 'reset'
+  }
+})
+```
+
+**Data**:
+
+| Key                  |   Type          |  Required |  Description                    |
+|----------------------|-----------------|-----------|---------------------------------|
+| title                | string          |     +     | text in title                   |
+| settingsButtonTitle  | string          |     +     | text in settings button title   |
+| resetButtonTitle     | string          |     +     | text in reset button title      |
+
+
+
+### **changeRate**  <a name="changeRate"></a> 
+changing the value in component `Rate` in a specific language pack   
+
+**Usage**:  
+```
+import { ckAPIMethods } from "sova-chatkit"
+
+ckAPIMethods.languages('changeRate', {
+  title: 'Is it helpfull?',  // text in title
+  negative: 'No',  // text in title of negative
+  positive: 'Yes',  // text in title of positive
+  ratingList: {  // text in comment to rate
+    {
+      rating: 3,  // text in "3"
+      text: "I had other question"
+    },
+    {
+      rating: 2,  // text in "2"
+      text: "Not understand the answer"
+    },
+    {
+      rating: 1,  // text in "1"
+      text: "Not resolve my problem"
+    }
+  }
+})
+```
+
+**Data**:
+
+<table>
+  <tr>
+    <td colspan="2" align=center><b>Key</b></td>
+    <td align=center><b>Type</b></td>
+    <td align=center><b>Required</b></td>
+    <td align=center><b>Description</b></td>
+  </tr>
+  <tr>
+    <td colspan="2">title</td>
+    <td>string</td>
+    <td>+</td>
+    <td>text in title</td>
+  </tr>
+  <tr>
+    <td colspan="2">negative</td>
+    <td>string</td>
+    <td>+</td>
+    <td>text in title of negative</td>
+  </tr>
+  <tr>
+    <td colspan="2">positive</td>
+    <td>string</td>
+    <td>+</td>
+    <td>text in title of positive</td>
+  </tr>
+  <tr>
+  <td colspan="2">ratingList</td>
+  <td>object</td>
+  <td></td>
+  <td></td>
+</tr>
+  <tr>
+    <td></td>
+    <td>rating</td>
+    <td>string</td>
+    <td>+</td>
+    <td>number of rate</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>text</td>
+    <td>string</td>
+    <td>+</td>
+    <td>text in comment to rate</td>
+  </tr>
+</table>
+  
+
+
+### **changeCKDropAndDown**  <a name="CKDropAndDown"></a> 
+changing the value in component `CKDropAndDown` in a specific language pack  
+
+**Usage**:  
+```
+import { ckAPIMethods } from "sova-chatkit"
+
+ckAPIMethods.languages('changeCKDropAndDown', {
+  language: 'English',  // name of chosen language packet which values you want to change
+  data: {
+    title: 'Drag and drop the file',  // text in title
+    comment: 'Pdf, txt, xls, doc no more than 25Mb',  // text in comment 
+    errorComment: 'Message that the allowed file size and format were exceeded, as well as the number of files',  // text in error comment
+    divider: 'or',  // text in devider
+    chooseFileButtonTitle: 'Choose file',  // text in choose file button title
+  }
+})
+```
+
+**Data**:
+
+| Key                     |   Type          |  Required |  Description                       |
+|-------------------------|-----------------|-----------|------------------------------------|
+| title                   | string          |     +     | text in title                      |
+| comment                 | string          |     +     | text in comment                    |
+| errorComment            | string          |     +     | text in error comment              |
+| divider                 | string          |     +     | text in divider                    |
+| chooseFileButtonTitle   | string          |     +     | text in choose file button title   |
